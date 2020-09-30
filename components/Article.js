@@ -1,3 +1,4 @@
+
 // This is the data we will be using to create our articles. Look at it, then proceed to line 93.
 // OPTIONAL: if you're feeling adventurous, try to make this data an export from a different module, and import it here.
 // You can read about ES6 modules here: https://exploringjs.com/es6/ch_modules.html#sec_basics-of-es6-modules
@@ -89,28 +90,92 @@ const data = [
   }
 ];
 
-/*
-  Step 1: Write a component called 'articleMaker' to create an article.
-  Your component is a function that takes an article object as its only argument,
-  and returns a DOM node looking like the one below:
+const newArticle = {
+  title: 'This is my New Test Article',
+  date: 'June 22nd, 2019',
+  firstParagraph: `There is immense joy in just watching - watching all the little creatures in nature. Exercising the imagination, experimenting with talents, being creative; these       things, to me, are truly the windows to your soul. A beautiful little sunset. You can't make a mistake. Anything that happens you can learn to use - and make something beautiful out of  it. Put light against light - you have nothing. Put dark against dark - you have nothing. It's the contrast of light and dark that each give the other one meaning. Get away from those little Christmas tree things we used to make in school.`,
 
-  <div class="article">
-    <h2>{title of the article}</h2>
-    <p class="date">{date of the article}</p>
+  secondParagraph: `We don't have to be committed. We are just playing here. That's why I paint - because I can create the kind of world I want - and I can make this world as happy as I want it. You can work and carry-on and put lots of little happy things in here. We might as well make some Almighty mountains today as well, what the heck.`,
 
-    {three separate paragraph elements}
+  thirdParagraph: `Just think about these things in your mind and drop em' on canvas. That's what painting is all about. It should make you feel good when you paint. You need the dark in order to show the light. In your world you can create anything you desire. There isn't a rule. You just practice and find out which way works best for you.`
+}
 
-    <span class="expandButton">+</span>
-  </div>
+data.push(newArticle)
 
-  Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
-  This listener should toggle the class 'article-open' on div.article.
 
-  Step 3: Don't forget to return something from your function!
+  // Step 1: Write a component called 'articleMaker' to create an article.
+  // Your component is a function that takes an article object as its only argument,
+  // and returns a DOM node looking like the one below:
 
-  Step 4: Outside your function now, loop over the data. At each iteration you'll use your component
-  to create a div.article element and append it to the DOM inside div.articles (see index.html).
+function articleMaker(data){
+  const article = document.createElement('div')
+  const articleTitle = document.createElement('h2')
+  const articleDate = document.createElement('p')
+  const firstParagraph = document.createElement('p')
+  const secondParagraph = document.createElement('p')
+  const thirdParagraph = document.createElement('p')
+  const expandButton = document.createElement('span')
 
-  Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
-  Refresh the page to see the new article.
-*/
+
+  article.appendChild(articleTitle);
+  article.appendChild(articleDate);
+  article.appendChild(firstParagraph);
+  article.appendChild(secondParagraph);
+  article.appendChild(thirdParagraph);
+  article.appendChild(expandButton);
+
+
+  article.classList.add('article');
+  articleDate.classList.add('date');
+  expandButton.classList.add('expandButton');
+
+  articleTitle.textContent = data.title;
+  articleDate.textContent = data.date;
+  firstParagraph.textContent = data.firstParagraph;
+  secondParagraph.textContent = data.secondParagraph;
+  thirdParagraph.textContent = data.thirdParagraph;
+  expandButton.textContent = '+';
+
+
+  expandButton.addEventListener('click', (event) =>{
+    article.classList.toggle('article-open')
+  })
+
+  return article
+}
+
+console.log(articleMaker(data))
+
+const articles = document.querySelector('.articles')
+
+
+// let dataLoop = data.map((object) => {
+//   let dataTest = articleMaker(object.)
+// })
+
+
+data.forEach(objectData => {
+  const article = articleMaker(objectData)
+  articles.appendChild(article)
+})
+
+  // <div class="article">
+  //   <h2>{title of the article}</h2>
+  //   <p class="date">{date of the article}</p>
+
+  //   {three separate paragraph elements}
+
+  //   <span class="expandButton">+</span>
+  // </div>
+
+  // Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
+  // This listener should toggle the class 'article-open' on div.article.
+
+  // Step 3: Don't forget to return something from your function!
+
+  // Step 4: Outside your function now, loop over the data. At each iteration you'll use your component
+  // to create a div.article element and append it to the DOM inside div.articles (see index.html).
+
+  // Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
+  // Refresh the page to see the new article.
+
